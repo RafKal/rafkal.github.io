@@ -4,3 +4,16 @@ plugins:
 
 title: [Rafail Kalenderis]
 description: [Data Scientist]
+
+
+
+# Add this to include custom assets
+sass:
+  style: compressed
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      css: "css/custom.css"
