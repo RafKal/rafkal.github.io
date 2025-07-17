@@ -41,11 +41,19 @@ Komplett Programmiert in Nativen Java in Android Studio.
 
 Dynamischer und text basierte suche für immobilien.
 
-Irgendwann ist es soweit - Studium ist abgeschlossen und die Wohnungssuche geht los. Dabei bekamm Ich die Idee, eine Semantische Suche selber zu kreieren um den Prozess ggf. zu beschleunugen. Dabei tickt der User keine übliche Filter - er schreibt lediglich was er möchte in Plaintext, und das Programm macht den Rest. 
+Irgendwann ist es soweit - Studium ist abgeschlossen und die Wohnungssuche geht los. Dabei bekamm Ich die Idee, eine Semantische Suche selber zu kreieren um den Prozess ggf. zu beschleunugen. Dabei tickt der User keine übliche Filter - er schreibt lediglich was er möchte in Plaintext, und das Programm extrahiert davon alles - Preis, Ort, usw. 
 
-Technisch gesehen heißt dass, das alle Wünsche durch den User Input extrahiert werden müssen.
+ Hier kann Ich klar sagen: Durch ein lokales LLM wie Deepseek oder API basiertes wie ChatGPT wird dies recht einfach. Man gibt den User Input und eine vordefinierte Struktur wie XML und bekommt die Infos die man braucht. Ich wollte es aber mit gängigem und zugänglichen Tools erledigen.
 
- Hier kann Ich klar sagen: Durch ein lokales LLM wie Deepseek oder API basiertes wie ChatGPT wird es viel einfacher. Man gibt den User Input und eine vordefinierte Struktur wie XML und bekommt die Infos die man braucht. Ich wollte es aber mit gängigem und zugänglichen Tools erledigen.
+ Für Daten habe Ich Deutsche Immobilien in Kaggle benutzt, da das Dynamische Scrapen von Auflistungen leider gegen den Nutzungsbedingungen von jeder großen Immobiliendatenbank ist deshalb mittels der Kaggle Datenbank simuliert wird. Sonst wäre es mit Tools wie Beatifulsoup erstellt und für verschiedene Websites angepasst.
+
+ Die Suche selber passiert auf 2 Ebenen: A. Die Regedix (?) analyse durch lemmanisierung und B. Die Semantische Suche selber
+
+A. Regedix hier
+
+B. Für die Semantische Suche wurden erst alle Auflistungsbeschreibungen und Austattungen durch ein Vector Embedder (in diesem Fall "all-MiniLM-L6-v2") im Vektorbereich kodiert. Der User Input wird dann auch so wie geschrieben embedded (lemmanisiert wird hier nicht da all-MiniLM-L6-v2 strukturempfindlich ist). Letztens wird der User Input mit den Auflistungen verglichen und die 20 mit den der größten sinusetwas änligkeit Angezeigt
+
+Letztes dient Streamlit als das Frontend und host.
 
      
 
