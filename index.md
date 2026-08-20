@@ -472,7 +472,7 @@
                 <div class="youtube">
 
                     <iframe
-                        src="https://www.youtube.com/embed/YOUR_VIDEO_ID_1"
+                        src="https://www.youtube.com/watch?v=P6GuWPpnjZc"
                         title="Project 1"
                         allowfullscreen>
                     </iframe>
@@ -501,8 +501,7 @@
                 <div class="youtube">
 
                     <iframe
-                        src="https://www.youtube.com/embed/YOUR_VIDEO_ID_2"
-                        title="Project 2"
+                        src="https://www.youtube.com/watch?v=RfkQ648Qx_Y"
                         allowfullscreen>
                     </iframe>
 
