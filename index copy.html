@@ -1,0 +1,866 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rafail Kalenderis — Video Production</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #0b0b0b;
+            color: #f1f1f1;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.5;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 64px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid #222;
+
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 75vh;
+
+            display: flex;
+            align-items: center;
+
+            padding: 140px 8% 80px;
+
+            background:
+                radial-gradient(
+                    circle at 75% 50%,
+                    rgba(255, 140, 30, 0.12),
+                    transparent 30%
+                ),
+                #0b0b0b;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .eyebrow {
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 12px;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            font-size: clamp(48px, 8vw, 100px);
+            line-height: 0.95;
+            letter-spacing: -4px;
+            margin-bottom: 30px;
+        }
+
+        .hero-description {
+            max-width: 560px;
+            color: #aaa;
+            font-size: 18px;
+        }
+
+        .button {
+            display: inline-block;
+
+            margin-top: 35px;
+            padding: 13px 22px;
+
+            border: 1px solid #555;
+
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+
+            transition: 0.2s;
+        }
+
+        .button:hover {
+            background: white;
+            color: black;
+            border-color: white;
+        }
+
+        /* =========================
+           GENERAL
+        ========================= */
+
+        section {
+            width: 88%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 90px 0;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+            margin-bottom: 35px;
+
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-title::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: #333;
+        }
+
+        /* =========================
+           VIDEO GRID
+        ========================= */
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 35px;
+        }
+
+        .project {
+            min-width: 0;
+        }
+
+        .youtube {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+
+            background: #151515;
+            overflow: hidden;
+        }
+
+        .youtube iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .project-info {
+            padding-top: 15px;
+        }
+
+        .project-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .project-description {
+            color: #888;
+            font-size: 13px;
+        }
+
+        /* =========================
+           MOTION / GIF / VIDEO
+        ========================= */
+
+        .motion-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .motion-item {
+            position: relative;
+            aspect-ratio: 16 / 10;
+
+            overflow: hidden;
+
+            background: #151515;
+
+            border: 1px solid #222;
+        }
+
+        .motion-item img,
+        .motion-item video {
+            width: 100%;
+            height: 100%;
+
+            display: block;
+
+            object-fit: cover;
+
+            transition: transform 0.4s ease;
+        }
+
+        .motion-item:hover img,
+        .motion-item:hover video {
+            transform: scale(1.03);
+        }
+
+        .media-label {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+
+            padding: 4px 8px;
+
+            background: rgba(0, 0, 0, 0.75);
+            border: 1px solid #555;
+
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* =========================
+           ABOUT
+        ========================= */
+
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        .about-text {
+            max-width: 600px;
+            color: #aaa;
+            font-size: 16px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 35px;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 600;
+        }
+
+        .stat-label {
+            color: #777;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* =========================
+           CONTACT
+        ========================= */
+
+        .contact {
+            border-top: 1px solid #222;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: clamp(35px, 6vw, 70px);
+            margin-bottom: 25px;
+        }
+
+        .contact p {
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        .contact-links a:hover {
+            color: white;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            padding: 30px 6%;
+
+            border-top: 1px solid #222;
+
+            color: #555;
+            font-size: 11px;
+
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                min-height: 65vh;
+                padding-top: 120px;
+            }
+
+            h1 {
+                letter-spacing: -2px;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .motion-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            section {
+                width: 90%;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
+
+    <nav>
+        <div class="logo">
+            RAFAIL KALENDERIS
+        </div>
+
+        <div class="nav-links">
+            <a href="#work">Work</a>
+            <a href="#motion">Motion</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <div class="eyebrow">
+                Video Production · Editing · IRL
+            </div>
+
+            <h1>
+                VIDEO<br>
+                PRODUCTION<br>
+                & EDITING
+            </h1>
+
+            <p class="hero-description">
+                Video producer and editor with experience in IRL content,
+                traditional media, storytelling and motion design.
+            </p>
+
+            <a class="button" href="#work">
+                View Work ↓
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         YOUTUBE WORK
+    ========================== -->
+
+    <section id="work">
+
+        <div class="section-title">
+            Featured Work
+        </div>
+
+
+        <div class="video-grid">
+
+
+            <!-- PROJECT 1 -->
+
+            <article class="project">
+
+                <div class="youtube">
+
+                 
+
+                    <iframe
+                        src="https://www.youtube.com/embed/P6GuWPpnjZc"
+                        title="My video"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+
+                </div>
+
+                <div class="project-info">
+
+                    <div class="project-title">
+                        IRL / Travel Production
+                    </div>
+
+                    <div class="project-description">
+                        Stunden von Material und Drone Footage kombiniert
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- PROJECT 2 -->
+
+            <article class="project">
+
+                <div class="youtube">
+
+                 
+
+                    <iframe
+                        src="https://www.youtube.com/embed/RfkQ648Qx_Y"
+                        title="My video"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+
+                </div>
+
+                <div class="project-info">
+
+                    <div class="project-title">
+                        IRL / Travel Production
+                    </div>
+
+                    <div class="project-description">
+                        Stunden von Material und Drone Footage kombiniert
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- PROJECT 3 -->
+
+             <article class="project">
+
+                <div class="youtube">
+
+                 
+
+                    <iframe
+                        src="https://www.youtube.com/embed/4vSU4e8PFz8"
+                        title="My video"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+
+                </div>
+
+                <div class="project-info">
+
+                    <div class="project-title">
+                        IRL / Travel Production
+                    </div>
+
+                    <div class="project-description">
+                        Stunden von Material und Drone Footage kombiniert
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- PROJECT 4 -->
+  <article class="project">
+
+                <div class="youtube">
+
+                 
+
+                    <iframe
+                        src="https://www.youtube.com/embed/P6GuWPpnjZc"
+                        title="My video"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+
+                </div>
+
+                <div class="project-info">
+
+                    <div class="project-title">
+                        IRL / Travel Production
+                    </div>
+
+                    <div class="project-description">
+                        Stunden von Material und Drone Footage kombiniert
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         MOTION DESIGN
+    ========================== -->
+
+    <section id="motion">
+
+        <div class="section-title">
+            Motion Design & Graphics
+        </div>
+
+
+        <div class="motion-grid">
+
+
+            <!-- GIF -->
+
+            <div class="motion-item">
+
+                <img
+                    src="assets/sintro_2.mp4"
+                    alt="Motion design example">
+
+                <span class="media-label">
+                    GIF
+                </span>
+
+                    <div class="project-title">
+                       Privates Projekt Logo Animation
+                   </div>
+
+            </div>
+
+              <div class="motion-item">
+
+                <video
+                    src="assets/sintro8.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline>
+                </video>
+
+                <span class="media-label">
+                    MP4
+                </span>
+
+            </div>
+
+
+            <!-- LOCAL VIDEO -->
+
+            <div class="motion-item">
+
+                <video
+                    src="assets/TDgreen.mp4"
+                    autoplay    
+                    muted
+                    loop
+                    playsinline>
+                </video>
+
+                <span class="media-label">
+                    MP4
+                </span>
+
+            </div>
+
+         
+
+            <!-- ANOTHER GIF -->
+
+            <div class="motion-item">
+
+                <img
+                    src="assets/pinkBox.gif"
+                    alt="Motion design example">
+
+                <span class="media-label">
+                    GIF
+                </span>
+
+            </div>
+
+            
+            <div class="motion-item">
+
+                <img
+                    src="assets/blackBox.gif"
+                    alt="Motion design example">
+
+                <span class="media-label">
+                    GIF
+                </span>
+
+            </div>
+
+
+            <!-- ANOTHER VIDEO -->
+
+            <div class="motion-item">
+
+                <video
+                    src="assets/outro smoll.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline>
+                </video>
+
+                <span class="media-label">
+                    MP4
+                </span>
+
+            </div>
+
+
+            <!-- ADD MORE ITEMS HERE -->
+
+          
+
+
+            <div class="motion-item">
+
+                <img
+                    src="assets/Short Intro.mp4"
+                    alt="Motion design example">
+
+                <span class="media-label">
+                    GIF
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ABOUT
+    ========================== -->
+
+    <section id="about">
+
+        <div class="section-title">
+            About Me
+        </div>
+
+
+        <div class="about">
+
+            <div class="about-text">
+
+                <p>
+                    I'm a video producer and editor with a passion for
+                    storytelling and visual content.
+                </p>
+
+                <br>
+
+                <p>
+                    My experience spans IRL streaming, travel content,
+                    traditional media production, interviews, camera work,
+                    editing and motion design.
+                </p>
+
+                <br>
+
+                <p>
+                    I also hold a BSc in Data Science, giving me a strong
+                    analytical and technical perspective alongside my
+                    creative work.
+                </p>
+
+            </div>
+
+
+            <div class="stats">
+
+                <div>
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">
+                        Videos Produziert
+                    </div>
+                </div>
+
+                <div>
+                    <div class="stat-number">300K+</div>
+                    <div class="stat-label">
+                        Subscribers
+                    </div>
+                </div>
+
+                <div>
+                    <div class="stat-number">Premiere Pro · After Effects · Photoshop</div>
+                    <div class="stat-label">
+                        Video Editing & Motion Design
+                    </div>
+                </div>
+
+                <div>
+                    <div class="stat-number">IRL + TV</div>
+                    <div class="stat-label">
+                        Produktionserfahrung
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CONTACT
+    ========================== -->
+
+    <section id="contact" class="contact">
+
+        <h2>
+            OFFEN FÜR ZUSAMMENARBEIT
+        </h2>
+
+        <p>
+            Available for video production, editing and creative projects.
+        </p>
+
+        <div class="contact-links">
+
+            <a href="mailto:rafailkalenderis@yahoo.com">
+                Email
+            </a>
+
+            <a href="https://www.linkedin.com/in/YOUR_LINKEDIN/" target="_blank">
+                LinkedIn
+            </a>
+
+            <a href="assets/CV.pdf" target="_blank">
+                CV
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <span>
+            © 2026 Rafail Kalenderis
+        </span>
+
+        <span>
+            Video Production · Editing · Media
+        </span>
+
+    </footer>
+
+
+</body>
+</html>
+```
